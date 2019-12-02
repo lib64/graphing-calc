@@ -25,15 +25,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        astnode.cpp \
         lexer.cpp \
         lexertoken.cpp \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        parser.cpp
 
 HEADERS += \
+        astnode.h \
         lexer.h \
         lexertoken.h \
-        mainwindow.h
+        mainwindow.h \
+        parser.h
 
 FORMS += \
         mainwindow.ui
