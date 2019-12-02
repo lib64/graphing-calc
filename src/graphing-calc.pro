@@ -26,6 +26,7 @@ CONFIG += c++11
 
 SOURCES += \
         astnode.cpp \
+        interpreter.cpp \
         lexer.cpp \
         lexertoken.cpp \
         main.cpp \
@@ -34,6 +35,7 @@ SOURCES += \
 
 HEADERS += \
         astnode.h \
+        interpreter.h \
         lexer.h \
         lexertoken.h \
         mainwindow.h \
