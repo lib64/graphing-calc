@@ -25,11 +25,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        lexer.cpp \
         lexertoken.cpp \
         main.cpp \
         mainwindow.cpp
 
 HEADERS += \
+        lexer.h \
         lexertoken.h \
         mainwindow.h
 
