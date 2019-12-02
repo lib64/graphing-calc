@@ -34,7 +34,7 @@ public:
     AstNode *getChild(size_t index);
     size_t childCount() const;
 
-    void print();
+    string to_string();
     AstNode::Type getType() const;
     string getValue() const;
     double getResult() const;

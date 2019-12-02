@@ -1,5 +1,7 @@
 #include "astnode.h"
 
+#include <iostream>
+
 AstNode::AstNode(AstNode::Type type, const std::string &value, size_t col)
 {
     _type = type;
@@ -22,6 +24,11 @@ size_t AstNode::childCount() const
     return _children.size();
 }
 
+std::string AstNode::to_string()
+{
+    return _value;
+}
+
 AstNode::Type AstNode::getType() const
 {
     return _type;
@@ -40,4 +47,17 @@ double AstNode::getResult() const
 void AstNode::setResult(double result)
 {
     _result = result;
+}
+
+void printAst(AstNode *node, int depth)
+{
+    for(int i = 0; i < depth; i++) {
+        std::cout << "  ";
+    }
+
+    std::cout << node->to_string() << std::endl;
+
+    for(int i = 0; i < node->childCount();i++) {
+        printAst(node->getChild(i), depth + 1);
+    }
 }

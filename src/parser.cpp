@@ -7,8 +7,9 @@ void Parser::expect(LexerToken::Type type)
     }
 
     if(_tokens.at(_current).type() != type) {
-        throw std::invalid_argument("expected token");
+        throw std::invalid_argument("expected token.");
     }
+    ++_current;
 }
 
 bool Parser::accept(LexerToken::Type type)
@@ -94,12 +95,10 @@ AstNode *Parser::parseMultiplicative()
 
 AstNode *Parser::parseUnary()
 {
+    LexerToken tok = _tokens.at(_current);
+
     if(accept(LexerToken::Type::OP_SUB)) {
        AstNode *right = parseUnary();
-
-       unaccept();
-       LexerToken tok = _tokens.at(_current);
-       skip();
 
        AstNode *parent = new AstNode(AstNode::Type::UNARY, tok.value(), tok.col());
        parent->addChild(right);
@@ -111,12 +110,27 @@ AstNode *Parser::parseUnary()
 AstNode *Parser::parsePrimary()
 {
     LexerToken tok = _tokens.at(_current++);
-    AstNode *node = nullptr;
     switch(tok.type())
     {
-    case LexerToken::Type::IDENTIFIER: node = new AstNode(AstNode::Type::IDENTIFIER, tok.value(), tok.col()); break;
-    case LexerToken::Type::INT_LIT: node = new AstNode(AstNode::Type::INT_LITERAL, tok.value(), tok.col()); break;
-    case LexerToken::Type::FLOAT_LIT: node = new AstNode(AstNode::Type::FLOAT_LITERAL, tok.value(), tok.col()); break;
+    case LexerToken::Type::IDENTIFIER: return new AstNode(AstNode::Type::IDENTIFIER, tok.value(), tok.col());
+    case LexerToken::Type::INT_LIT: return new AstNode(AstNode::Type::INT_LITERAL, tok.value(), tok.col());
+    case LexerToken::Type::FLOAT_LIT: return new AstNode(AstNode::Type::FLOAT_LITERAL, tok.value(), tok.col());
+    case LexerToken::Type::ABS:
+    case LexerToken::Type::SQRT:
+    case LexerToken::Type::SIN:
+    case LexerToken::Type::COS:
+    case LexerToken::Type::TAN:
+    case LexerToken::Type::ASIN:
+    case LexerToken::Type::ACOS:
+    case LexerToken::Type::ATAN:
+    {
+        AstNode *parent = new AstNode(AstNode::Type::FUNCTION, tok.value(), tok.col());
+        expect(LexerToken::Type::LPAREN);
+        AstNode *child = parseExpr();
+        expect(LexerToken::Type::RPAREN);
+        parent->addChild(child);
+        return parent;
+    }
     case LexerToken::Type::LPAREN:
     {
         AstNode *expr = parseExpr();
@@ -124,7 +138,6 @@ AstNode *Parser::parsePrimary()
         return expr;
     }
     default:
-        throw std::invalid_argument("Tok not primary:");
+        throw std::invalid_argument("invalid primary token.");
     }
-    return node;
 }

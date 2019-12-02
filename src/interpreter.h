@@ -19,6 +19,7 @@ public:
     void interpretInt(AstNode *node);
     void interpretFloat(AstNode *node);
     void interpretIdentifier(AstNode *node);
+    void interpretFunction(AstNode *node);
 };
 
 #endif // INTERPRETER_H

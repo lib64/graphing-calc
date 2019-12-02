@@ -19,8 +19,8 @@ public:
     Parser(vector<LexerToken> &tokens);
 
     AstNode *parseMain();
-    AstNode *parseFunction();
     AstNode *parseExpr();
+    AstNode *parseFunction();
     AstNode *parseAdditive();
     AstNode *parseMultiplicative();
     AstNode *parseUnary();

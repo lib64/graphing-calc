@@ -14,6 +14,7 @@ public:
         LPAREN,
         RPAREN,
         SQRT,
+        ABS,
         SIN,
         COS,
         TAN,
@@ -24,8 +25,7 @@ public:
         OP_SUB,
         OP_MUL,
         OP_DIV,
-        OP_POW,
-        OP_ABS
+        OP_POW
     };
 private:
     LexerToken::Type _type;
@@ -36,6 +36,7 @@ public:
     LexerToken::Type type() const;
     string value() const;
     size_t col() const;
+
 };
 
 #endif // LEXERTOKEN_H

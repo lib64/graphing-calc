@@ -21,3 +21,4 @@ size_t LexerToken::col() const
 {
     return _col;
 }
+

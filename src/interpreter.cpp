@@ -1,6 +1,7 @@
 #include "interpreter.h"
 
 #include <stdexcept>
+#include <math.h>
 
 Interpreter::Interpreter(AstNode *expr)
 {
@@ -29,6 +30,8 @@ void Interpreter::interpretMain(AstNode *node)
     case AstNode::Type::INT_LITERAL: interpretInt(node); break;
     case AstNode::Type::FLOAT_LITERAL: interpretFloat(node); break;
     case AstNode::Type::IDENTIFIER: interpretIdentifier(node); break;
+    case AstNode::Type::FUNCTION: interpretFunction(node); break;
+
     }
 }
 
@@ -90,4 +93,26 @@ void Interpreter::interpretFloat(AstNode *node)
 void Interpreter::interpretIdentifier(AstNode *node)
 {
     node->setResult(_x);
+}
+
+void Interpreter::interpretFunction(AstNode *node)
+{
+    AstNode *child = node->getChild(0);
+    if(node->getValue() == "abs") {
+        node->setResult(abs(child->getResult()));
+    } else if(node->getValue() == "sqrt") {
+        node->setResult(sqrt(child->getResult()));
+    }else if(node->getValue() == "sin") {
+        node->setResult(sin(child->getResult()));
+    }else if(node->getValue() == "cos") {
+        node->setResult(cos(child->getResult()));
+    }else if(node->getValue() == "tan") {
+        node->setResult(tan(child->getResult()));
+    }else if(node->getValue() == "asin") {
+        node->setResult(asin(child->getResult()));
+    }else if(node->getValue() == "acos") {
+        node->setResult(acos(child->getResult()));
+    }else if(node->getValue() == "atan") {
+        node->setResult(atan(child->getResult()));
+    }
 }
