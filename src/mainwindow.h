@@ -21,7 +21,7 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void graphFunction(double (Interpreter::*func)(double), Interpreter &interpreter);
+    void graphFunction(Interpreter &interpreter);
 
 private slots:
     void on_lineEdit_textChanged(const QString &arg1);
@@ -31,6 +31,7 @@ private:
     Ui::MainWindow *ui;
     QGraphicsScene *_scene;
     QGraphicsPixmapItem *_pixmapItem;
+    QSize _size;
 };
 
 #endif // MAINWINDOW_H

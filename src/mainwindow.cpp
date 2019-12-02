@@ -14,19 +14,14 @@ MainWindow::MainWindow(QWidget *parent) :
     _scene = new QGraphicsScene(this);
     ui->graphicsView->setScene(_scene);
 
+    _size.setWidth(640);
+    _size.setHeight(480);
 
-    /*
-    QPainter painter(&image);
-    QPen pen(Qt::white);
-    pen.setWidth(5);
-    painter.setPen(pen);
-    painter.drawLine(0,0,100,100);
-    */
-
-    QImage image(640,480,QImage::Format::Format_RGB32);
+    QImage image(_size.width(),_size.height(),QImage::Format::Format_RGB32);
     image.fill(Qt::white);
     _pixmapItem = new QGraphicsPixmapItem(QPixmap::fromImage(image));
     _scene->addItem(_pixmapItem);
+
 
 }
 
@@ -35,9 +30,31 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::graphFunction(double (Interpreter::*function)(double), Interpreter &interpreter)
+void MainWindow::graphFunction(Interpreter &interpreter)
 {
-    std::cout << (interpreter.*function)(10.0) << std::endl;
+    QImage image(_size.width(),_size.height(),QImage::Format::Format_RGB32);
+    image.fill(Qt::white);
+    QPainter painter(&image);
+
+    QPoint prev;
+
+    bool first = true;
+
+    for(int x = 0; x < _size.width(); x++) {
+
+        int y = interpreter.interpret(x);
+
+        if(!first) {
+            painter.drawLine(prev, QPoint(x,y));
+        } else {
+            first = false;
+        }
+
+        prev.setX(x);
+        prev.setY(y);
+    }
+
+    _pixmapItem->setPixmap(QPixmap::fromImage(image));
 }
 
 void MainWindow::on_lineEdit_textChanged(const QString &arg1)
@@ -50,10 +67,12 @@ void MainWindow::on_lineEdit_textChanged(const QString &arg1)
         AstNode *root = parser.parseMain();
 
         Interpreter interpreter(root);
-        graphFunction(&Interpreter::interpret, interpreter);
+        graphFunction(interpreter);
 
     } catch (...) {
-
+        QImage image(_size.width(),_size.height(),QImage::Format::Format_RGB32);
+        image.fill(Qt::white);
+        _pixmapItem->setPixmap(QPixmap::fromImage(image));
     }
 }
 
