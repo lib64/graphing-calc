@@ -51,7 +51,7 @@ void MainWindow::graphFunction(Interpreter &interpreter)
 
     for(int x = _xmin; x < _xmax; x += _xscl) {
 
-        int y = static_cast<int>(interpreter.interpret(x));
+        int y = -static_cast<int>(interpreter.interpret(x));
         if(!first) {
             painter.drawLine(prev, QPoint(x+width/2,y+height/2));
         } else {
