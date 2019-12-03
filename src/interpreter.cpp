@@ -51,7 +51,7 @@ void Interpreter::interpretAdditive(AstNode *node)
     } else if(node->getValue() == "-") {
         res = left->getResult() - right->getResult();
     } else {
-        throw std::invalid_argument("evaluateAdditive: bad value" + node->getValue());
+        throw std::invalid_argument("interpretAdditive: bad value" + node->getValue());
     }
     node->setResult(res);
 }
@@ -67,7 +67,7 @@ void Interpreter::interpretMultiplicative(AstNode *node)
     } else if(node->getValue() == "/") {
         res = left->getResult() / right->getResult();
     } else {
-        throw std::invalid_argument("evaluateMultiplicative: bad value");
+        throw std::invalid_argument("interpretMultiplicative: bad value");
     }
     node->setResult(res);
 }
