@@ -25,6 +25,8 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void drawOrigin(QPainter &painter);
+
     void graphFunction(Interpreter &interpreter);
 
     bool isWindowValid() const;

@@ -37,19 +37,37 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::drawOrigin(QPainter &painter)
+{
+    QPen pen(Qt::gray);
+    painter.setPen(pen);
+
+
+    int width = abs(_xmin - _xmax);
+    int height = abs(_ymin - _ymax);
+    painter.drawLine(width/2,0,width/2,height);
+    painter.drawLine(0,height/2,width,height/2);
+}
+
 void MainWindow::graphFunction(Interpreter &interpreter)
 {
     QImage image(_size.width(),_size.height(),QImage::Format::Format_RGB32);
     image.fill(Qt::white);
     QPainter painter(&image);
 
+    drawOrigin(painter);
+
+    QPen pen(Qt::red);
+    pen.setWidth(2);
+    painter.setPen(pen);
+
     QPoint prev;
     bool first = true;
 
-    int width = abs(_xmin) + abs(_xmax);
-    int height = abs(_ymin) + abs(_ymax);
+    int width = abs(_xmin - _xmax);
+    int height = abs(_ymin - _ymax);
 
-    for(int x = _xmin; x < _xmax; x += _xscl) {
+    for(int x = _xmin; x < _xmax; x++) {
 
         int y = -static_cast<int>(interpreter.interpret(x));
         if(!first) {
@@ -74,6 +92,9 @@ bool MainWindow::isWindowValid() const
 void MainWindow::on_lineEdit_textChanged(const QString &arg1)
 {
     if(!isWindowValid()) {
+        return;
+    }
+    if(arg1.isEmpty()) {
         return;
     }
     try {
@@ -120,6 +141,7 @@ void MainWindow::on_lineEdit_5_textChanged(const QString &arg1)
         _is_ymin = true;
         ui->lineEdit_5->setStyleSheet(LINE_EDIT_WHITE);
     }
+    on_lineEdit_textChanged(ui->lineEdit->text());
 }
 //xmax
 void MainWindow::on_lineEdit_3_textChanged(const QString &arg1)
@@ -133,6 +155,7 @@ void MainWindow::on_lineEdit_3_textChanged(const QString &arg1)
         _is_xmax = true;
         ui->lineEdit_3->setStyleSheet(LINE_EDIT_WHITE);
     }
+    on_lineEdit_textChanged(ui->lineEdit->text());
 }
 //ymax
 void MainWindow::on_lineEdit_6_textChanged(const QString &arg1)
@@ -146,6 +169,7 @@ void MainWindow::on_lineEdit_6_textChanged(const QString &arg1)
         _is_ymax = true;
         ui->lineEdit_6->setStyleSheet(LINE_EDIT_WHITE);
     }
+    on_lineEdit_textChanged(ui->lineEdit->text());
 }
 //xscl
 void MainWindow::on_lineEdit_4_textChanged(const QString &arg1)
@@ -159,6 +183,7 @@ void MainWindow::on_lineEdit_4_textChanged(const QString &arg1)
         _is_xscl = true;
         ui->lineEdit_4->setStyleSheet(LINE_EDIT_WHITE);
     }
+    on_lineEdit_textChanged(ui->lineEdit->text());
 }
 //yscl
 void MainWindow::on_lineEdit_7_textChanged(const QString &arg1)
@@ -172,4 +197,5 @@ void MainWindow::on_lineEdit_7_textChanged(const QString &arg1)
         _is_yscl = true;
         ui->lineEdit_7->setStyleSheet(LINE_EDIT_WHITE);
     }
+    on_lineEdit_textChanged(ui->lineEdit->text());
 }
