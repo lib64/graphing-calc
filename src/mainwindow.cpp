@@ -3,6 +3,7 @@
 
 #include <QPainter>
 #include <iostream>
+#include <math.h>
 
 const QString MainWindow::LINE_EDIT_RED = "QLineEdit { background: rgb(255, 0, 0, 100);}";
 const QString MainWindow::LINE_EDIT_WHITE = "QLineEdit { background: rgb(255, 255, 255);}";
@@ -69,7 +70,12 @@ void MainWindow::graphFunction(Interpreter &interpreter)
 
     for(int x = _xmin; x < _xmax; x++) {
 
-        int y = -static_cast<int>(interpreter.interpret(x));
+        double yf = interpreter.interpret(x);
+        if(isnan(yf)) {
+            continue;
+        }
+        int y = -static_cast<int>(yf);
+
         if(!first) {
             painter.drawLine(prev, QPoint(x+width/2,y+height/2));
         } else {
