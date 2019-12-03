@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>958</width>
-    <height>696</height>
+    <width>870</width>
+    <height>511</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -103,7 +103,7 @@
              <item row="2" column="0">
               <widget class="QLineEdit" name="lineEdit_4">
                <property name="text">
-                <string>10</string>
+                <string>1</string>
                </property>
               </widget>
              </item>
@@ -157,7 +157,7 @@
              <item row="2" column="0">
               <widget class="QLineEdit" name="lineEdit_7">
                <property name="text">
-                <string>10</string>
+                <string>1</string>
                </property>
               </widget>
              </item>
@@ -190,7 +190,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>958</width>
+     <width>870</width>
      <height>19</height>
     </rect>
    </property>

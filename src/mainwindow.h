@@ -18,6 +18,10 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+
+    static const QString LINE_EDIT_RED;
+    static const QString LINE_EDIT_WHITE;
+
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 

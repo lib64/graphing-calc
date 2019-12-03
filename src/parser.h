@@ -23,6 +23,7 @@ public:
     AstNode *parseFunction();
     AstNode *parseAdditive();
     AstNode *parseMultiplicative();
+    AstNode *parseExponent();
     AstNode *parseUnary();
     AstNode *parsePrimary();
 

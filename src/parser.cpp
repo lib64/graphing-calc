@@ -76,7 +76,7 @@ AstNode *Parser::parseAdditive()
 
 AstNode *Parser::parseMultiplicative()
 {
-    AstNode *left = parseUnary();
+    AstNode *left = parseExponent();
     while(accept(LexerToken::Type::OP_MUL) ||
           accept(LexerToken::Type::OP_DIV)) {
 
@@ -84,8 +84,26 @@ AstNode *Parser::parseMultiplicative()
         LexerToken tok = _tokens.at(_current);
         skip();
 
-        AstNode *right = parseUnary();
+        AstNode *right = parseExponent();
         AstNode *parent = new AstNode(AstNode::Type::MULTIPLICATIVE, tok.value(), tok.col());
+        parent->addChild(left);
+        parent->addChild(right);
+        left = parent;
+    }
+    return left;
+}
+
+AstNode *Parser::parseExponent()
+{
+    AstNode *left = parseUnary();
+    while(accept(LexerToken::Type::OP_POW)) {
+
+        unaccept();
+        LexerToken tok = _tokens.at(_current);
+        skip();
+
+        AstNode *right = parseUnary();
+        AstNode *parent = new AstNode(AstNode::Type::EXPONENT, tok.value(), tok.col());
         parent->addChild(left);
         parent->addChild(right);
         left = parent;

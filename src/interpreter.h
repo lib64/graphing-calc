@@ -20,6 +20,8 @@ public:
     void interpretFloat(AstNode *node);
     void interpretIdentifier(AstNode *node);
     void interpretFunction(AstNode *node);
+    void interpretExponent(AstNode *node);
+
 };
 
 #endif // INTERPRETER_H

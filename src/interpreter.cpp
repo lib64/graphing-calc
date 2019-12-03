@@ -31,7 +31,7 @@ void Interpreter::interpretMain(AstNode *node)
     case AstNode::Type::FLOAT_LITERAL: interpretFloat(node); break;
     case AstNode::Type::IDENTIFIER: interpretIdentifier(node); break;
     case AstNode::Type::FUNCTION: interpretFunction(node); break;
-
+    case AstNode::Type::EXPONENT: interpretExponent(node); break;
     }
 }
 
@@ -115,4 +115,12 @@ void Interpreter::interpretFunction(AstNode *node)
     }else if(node->getValue() == "atan") {
         node->setResult(atan(child->getResult()));
     }
+}
+
+void Interpreter::interpretExponent(AstNode *node)
+{
+    AstNode *left = node->getChild(0);
+    AstNode *right = node->getChild(1);
+    double res = pow(left->getResult(), right->getResult());
+    node->setResult(res);
 }

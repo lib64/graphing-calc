@@ -1,7 +1,7 @@
 #include "lexer.h"
 
 const vector<string> Lexer::OPERATORS = {
-    "+","-","*","/",
+    "+","-","*","/","^",
     "(",")"
 };
 
@@ -87,8 +87,9 @@ vector<LexerToken> Lexer::lex()
             case 1: type = LexerToken::Type::OP_SUB; break;
             case 2: type = LexerToken::Type::OP_MUL; break;
             case 3: type = LexerToken::Type::OP_DIV; break;
-            case 4: type = LexerToken::Type::LPAREN; break;
-            case 5: type = LexerToken::Type::RPAREN; break;
+            case 4: type = LexerToken::Type::OP_POW; break;
+            case 5: type = LexerToken::Type::LPAREN; break;
+            case 6: type = LexerToken::Type::RPAREN; break;
             default:
                 throw std::invalid_argument("bad lexerTokenType for operator");
             }

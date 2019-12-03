@@ -14,6 +14,7 @@ public:
         ROOT,
         ADDITIVE,
         MULTIPLICATIVE,
+        EXPONENT,
         UNARY,
         INT_LITERAL,
         FLOAT_LITERAL,
