@@ -29,6 +29,8 @@ public:
 
     void graphFunction(Interpreter &interpreter);
 
+    void updatePixmap();
+
     bool isWindowValid() const;
 
     int getWidth();
@@ -42,6 +44,14 @@ private slots:
     void on_lineEdit_6_textChanged(const QString &arg1);
     void on_lineEdit_4_textChanged(const QString &arg1);
     void on_lineEdit_7_textChanged(const QString &arg1);
+
+    void on_pushButton_clicked();
+    void on_pushButton_2_clicked();
+    void on_pushButton_3_clicked();
+
+    void pushButton_setPallete();
+    void pushButton_2_setPallete();
+    void pushButton_3_setPallete();
 
 private:
     Ui::MainWindow *ui;
@@ -58,6 +68,7 @@ private:
 
     QPen _functionPen;
     QPen _graphPen;
+    QBrush _background;
 
 };
 
