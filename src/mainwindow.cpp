@@ -221,7 +221,6 @@ void MainWindow::on_lineEdit_7_textChanged(const QString &arg1)
     on_lineEdit_textChanged(ui->lineEdit->text());
 }
 
-// background color
 void MainWindow::on_pushButton_clicked()
 {
     _background = QColorDialog::getColor();
