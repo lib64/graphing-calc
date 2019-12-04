@@ -31,6 +31,9 @@ public:
 
     bool isWindowValid() const;
 
+    int getWidth();
+    int getHeight();
+
 private slots:
     void on_lineEdit_textChanged(const QString &arg1);
     void on_lineEdit_2_textChanged(const QString &arg1);
@@ -44,7 +47,6 @@ private:
     Ui::MainWindow *ui;
     QGraphicsScene *_scene;
     QGraphicsPixmapItem *_pixmapItem;
-    QSize _size;
 
     int _xmin, _xmax;
     int _ymin, _ymax;
@@ -53,6 +55,9 @@ private:
     bool _is_xmin, _is_xmax;
     bool _is_ymin, _is_ymax;
     bool _is_xscl, _is_yscl;
+
+    QPen _functionPen;
+    QPen _graphPen;
 
 };
 

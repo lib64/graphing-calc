@@ -24,13 +24,17 @@ MainWindow::MainWindow(QWidget *parent) :
     on_lineEdit_4_textChanged(ui->lineEdit_4->text());
     on_lineEdit_7_textChanged(ui->lineEdit_7->text());
 
-    _size.setWidth(640);
-    _size.setHeight(480);
+    _functionPen = QPen(Qt::red);
+    _graphPen = QPen(Qt::gray);
 
-    QImage image(_size.width(),_size.height(),QImage::Format::Format_RGB32);
-    image.fill(Qt::white);
-    _pixmapItem = new QGraphicsPixmapItem(QPixmap::fromImage(image));
+    _pixmapItem = new QGraphicsPixmapItem();
     _scene->addItem(_pixmapItem);
+
+    QImage image(getWidth(),getHeight(),QImage::Format::Format_RGB32);
+    image.fill(Qt::white);
+    QPainter painter(&image);
+    drawOrigin(painter);
+    _pixmapItem->setPixmap(QPixmap::fromImage(image));
 }
 
 MainWindow::~MainWindow()
@@ -40,33 +44,23 @@ MainWindow::~MainWindow()
 
 void MainWindow::drawOrigin(QPainter &painter)
 {
-    QPen pen(Qt::gray);
-    painter.setPen(pen);
-
-
-    int width = abs(_xmin - _xmax);
-    int height = abs(_ymin - _ymax);
-    painter.drawLine(width/2,0,width/2,height);
-    painter.drawLine(0,height/2,width,height/2);
+    painter.setPen(_graphPen);
+    painter.drawLine(getWidth()/2,0,getWidth()/2,getHeight());
+    painter.drawLine(0,getHeight()/2,getWidth(),getHeight()/2);
 }
 
 void MainWindow::graphFunction(Interpreter &interpreter)
 {
-    QImage image(_size.width(),_size.height(),QImage::Format::Format_RGB32);
+    QImage image(getWidth(),getHeight(),QImage::Format::Format_RGB32);
     image.fill(Qt::white);
     QPainter painter(&image);
 
     drawOrigin(painter);
 
-    QPen pen(Qt::red);
-    pen.setWidth(2);
-    painter.setPen(pen);
+    painter.setPen(_functionPen);
 
     QPoint prev;
     bool first = true;
-
-    int width = abs(_xmin - _xmax);
-    int height = abs(_ymin - _ymax);
 
     for(int x = _xmin; x < _xmax; x++) {
 
@@ -77,12 +71,12 @@ void MainWindow::graphFunction(Interpreter &interpreter)
         int y = -static_cast<int>(yf);
 
         if(!first) {
-            painter.drawLine(prev, QPoint(x+width/2,y+height/2));
+            painter.drawLine(prev, QPoint(x+getWidth()/2,y+getHeight()/2));
         } else {
             first = false;
         }
-        prev.setX(x+width/2);
-        prev.setY(y+height/2);
+        prev.setX(x+getWidth()/2);
+        prev.setY(y+getHeight()/2);
     }
 
     _pixmapItem->setPixmap(QPixmap::fromImage(image));
@@ -92,7 +86,17 @@ bool MainWindow::isWindowValid() const
 {
     return _is_xmin && _is_xmax &&
            _is_ymin && _is_ymax &&
-           _is_xscl && _is_yscl;
+            _is_xscl && _is_yscl;
+}
+
+int MainWindow::getWidth()
+{
+    return abs(_xmin - _xmax);
+}
+
+int MainWindow::getHeight()
+{
+    return abs(_ymin - _ymax);
 }
 
 void MainWindow::on_lineEdit_textChanged(const QString &arg1)
@@ -113,11 +117,10 @@ void MainWindow::on_lineEdit_textChanged(const QString &arg1)
         Interpreter interpreter(root);
         graphFunction(interpreter);
 
+        ui->graphicsView->centerOn(getWidth()/2,getHeight()/2);
+
         ui->lineEdit->setStyleSheet(LINE_EDIT_WHITE);
     } catch (...) {
-        QImage image(_size.width(),_size.height(),QImage::Format::Format_RGB32);
-        image.fill(Qt::white);
-        _pixmapItem->setPixmap(QPixmap::fromImage(image));
         ui->lineEdit->setStyleSheet(LINE_EDIT_RED);
     }
 }
