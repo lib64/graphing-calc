@@ -60,7 +60,7 @@ private:
 
     int _xmin, _xmax;
     int _ymin, _ymax;
-    int _xscl, _yscl;
+    double _xscl, _yscl;
 
     bool _is_xmin, _is_xmax;
     bool _is_ymin, _is_ymax;

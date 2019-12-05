@@ -102,18 +102,30 @@ void Interpreter::interpretFunction(AstNode *node)
         node->setResult(abs(child->getResult()));
     } else if(node->getValue() == "sqrt") {
         node->setResult(sqrt(child->getResult()));
-    }else if(node->getValue() == "sin") {
+    } else if(node->getValue() == "sin") {
         node->setResult(sin(child->getResult()));
-    }else if(node->getValue() == "cos") {
+    } else if(node->getValue() == "cos") {
         node->setResult(cos(child->getResult()));
-    }else if(node->getValue() == "tan") {
+    } else if(node->getValue() == "tan") {
         node->setResult(tan(child->getResult()));
-    }else if(node->getValue() == "asin") {
+    } else if(node->getValue() == "asin") {
         node->setResult(asin(child->getResult()));
-    }else if(node->getValue() == "acos") {
+    } else if(node->getValue() == "acos") {
         node->setResult(acos(child->getResult()));
-    }else if(node->getValue() == "atan") {
+    } else if(node->getValue() == "atan") {
         node->setResult(atan(child->getResult()));
+    } else if(node->getValue() == "sinh") {
+            node->setResult(sinh(child->getResult()));
+    } else if(node->getValue() == "cosh") {
+        node->setResult(cosh(child->getResult()));
+    } else if(node->getValue() == "tanh") {
+        node->setResult(tanh(child->getResult()));
+    } else if(node->getValue() == "asinh") {
+        node->setResult(asinh(child->getResult()));
+    } else if(node->getValue() == "acosh") {
+        node->setResult(acosh(child->getResult()));
+    } else if(node->getValue() == "atanh") {
+        node->setResult(atanh(child->getResult()));
     }
 }
 

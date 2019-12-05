@@ -141,6 +141,13 @@ AstNode *Parser::parsePrimary()
     case LexerToken::Type::ASIN:
     case LexerToken::Type::ACOS:
     case LexerToken::Type::ATAN:
+    case LexerToken::Type::SINH:
+    case LexerToken::Type::COSH:
+    case LexerToken::Type::TANH:
+    case LexerToken::Type::ASINH:
+    case LexerToken::Type::ACOSH:
+    case LexerToken::Type::ATANH:
+
     {
         AstNode *parent = new AstNode(AstNode::Type::FUNCTION, tok.value(), tok.col());
         expect(LexerToken::Type::LPAREN);

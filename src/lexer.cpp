@@ -7,8 +7,10 @@ const vector<string> Lexer::OPERATORS = {
 
 const vector<string> Lexer::FUNCTIONS = {
     "sqrt","abs",
+    "sinh","cosh","tanh",
+    "acosh","asinh","atanh",
     "sin","cos","tan",
-    "acos","asin","atan"
+    "acos","asin","atan",
 };
 
 const std::string Lexer::REGEX_IDENTIFIER = "[a-zA-Z_]+[a-zA-Z0-9_]*";
@@ -108,12 +110,20 @@ vector<LexerToken> Lexer::lex()
             switch(func) {
             case 0: type = LexerToken::Type::SQRT; break;
             case 1: type = LexerToken::Type::ABS; break;
-            case 2: type = LexerToken::Type::SIN; break;
-            case 3: type = LexerToken::Type::COS; break;
-            case 4: type = LexerToken::Type::TAN; break;
-            case 5: type = LexerToken::Type::ASIN; break;
-            case 6: type = LexerToken::Type::ACOS; break;
-            case 7: type = LexerToken::Type::ATAN; break;
+            case 2: type = LexerToken::Type::SINH; break;
+            case 3: type = LexerToken::Type::COSH; break;
+            case 4: type = LexerToken::Type::TANH; break;
+            case 5: type = LexerToken::Type::ASINH; break;
+            case 6: type = LexerToken::Type::ACOSH; break;
+            case 7: type = LexerToken::Type::ATANH; break;
+            case 8: type = LexerToken::Type::SIN; break;
+            case 9: type = LexerToken::Type::COS; break;
+            case 10: type = LexerToken::Type::TAN; break;
+            case 11: type = LexerToken::Type::ASIN; break;
+            case 12: type = LexerToken::Type::ACOS; break;
+            case 13: type = LexerToken::Type::ATAN; break;
+
+
             default:
                 throw std::invalid_argument("bad lexerTokenType for function");
             }

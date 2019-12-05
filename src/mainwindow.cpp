@@ -66,7 +66,7 @@ void MainWindow::graphFunction(Interpreter &interpreter)
 
     for(int x = _xmin; x < _xmax; x++) {
 
-        double yf = interpreter.interpret(x);
+        double yf = interpreter.interpret(x * _xscl) * _yscl;
         if(isnan(yf)) {
             continue;
         }
@@ -196,7 +196,7 @@ void MainWindow::on_lineEdit_6_textChanged(const QString &arg1)
 void MainWindow::on_lineEdit_4_textChanged(const QString &arg1)
 {
     bool ok;
-    _xscl = arg1.toInt(&ok);
+    _xscl = arg1.toDouble(&ok);
     if(!ok) {
         _is_xscl = false;
         ui->lineEdit_4->setStyleSheet(LINE_EDIT_RED);
@@ -210,7 +210,7 @@ void MainWindow::on_lineEdit_4_textChanged(const QString &arg1)
 void MainWindow::on_lineEdit_7_textChanged(const QString &arg1)
 {
     bool ok;
-    _yscl = arg1.toInt(&ok);
+    _yscl = arg1.toDouble(&ok);
     if(!ok) {
         _is_yscl = false;
         ui->lineEdit_7->setStyleSheet(LINE_EDIT_RED);
